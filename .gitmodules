@@ -1,0 +1,3 @@
+[submodule "pg_tde"]
+	path = pg_tde
+	url = git@github.com:percona/pg_tde.git
