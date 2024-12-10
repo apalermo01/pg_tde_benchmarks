@@ -39,3 +39,11 @@ sudo docker exec -it test-run bash
 ```
 bash test_run.sh sysbench/bulk_insert.lua
 ```
+
+# Next steps:
+
+1. set up scripts to run the rest of the sysbench scripts that already exist
+2. create a parser (either in python or bash) to turn the output of sysbench into csv files
+3. make some visualizations
+4. consider setting up an automated process to run the benchmarks whenever project's main branch is updated or on a schedule.
+5. create new benchmarks as needed
