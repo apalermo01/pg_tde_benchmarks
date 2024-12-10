@@ -29,7 +29,6 @@ Set up the extension:
 
 ```
 psql -U postgres 
-
 SELECT pg_tde_add_key_provider_file('file','/tmp/pgkeyring');
 SELECT pg_tde_set_principal_key('my-principal-key','file');
 ```

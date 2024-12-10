@@ -7,7 +7,8 @@ RUN apt-get update; \
     gcc \
     postgresql-server-dev-16 \
     make \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    neovim
 
 WORKDIR /opt/pg_tde
 
@@ -30,6 +31,10 @@ VOLUME /etc/postgresql/
 # install sysbench
 # RUN curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh
 RUN apt-get install -y sysbench
+
+# copy some scripts
+COPY ./scripts/* ./scripts/
+COPY test_run.sh .
 
 CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
 
