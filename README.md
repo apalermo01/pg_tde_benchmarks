@@ -1,42 +1,41 @@
 # pg_tde_benchmarks
 performance benchmarking for the pg_tde extrension from Percona
 
+# Requirements
+
+All you should need to run this project is docker in a linux environment. However I haven't verified this in a clean VM yet.
 
 # Building the project
 
-Update the submodules
+0. Start the docker daemon (I need to do this on Endeavour OS but you shouldn't have to run this if you use something like ubuntu)
+```
+sudo systemctl start docker
+```
+
+1. Update the submodules
 ```
 git submodule update --init --recursive
 ```
 
+2. Run the build script
 ```
-sudo docker build -t test .
-```
-
-```
-sudo docker run --name test-run -e POSTGRES_PASSWORD=pass -d test
+bash run_and_build_docker.sh
 ```
 
-```
-sudo docker exec -it test-run psql -U postgres
-```
+this script does a few things:
+- stops and removes the container if it's already running
+- re-builds the container 
+- starts the container 
+- set up the pg_tde extension 
+- set up sysbench 
+- restart the containe
 
+3. Enter into the container 
 ```
 sudo docker exec -it test-run bash
 ```
 
-Set up the extension:
-
+4. Run the proof-of-concept script 
 ```
-psql -U postgres 
-SELECT pg_tde_add_key_provider_file('file','/tmp/pgkeyring');
-SELECT pg_tde_set_principal_key('my-principal-key','file');
-```
-
-Set up sysbench (https://dinfratechsource.wordpress.com/2021/05/14/postgresql-performance-benchmark-using-sysbench/)
-
-Then restart the docker container
-
-```
-sudo docker restart test-run
+bash test_run.sh sysbench/bulk_insert.lua
 ```
